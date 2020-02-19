@@ -15,7 +15,7 @@ public class MoodAnalyzer {
 
         try {
             if (mood.contains("")) {
-                throw new MoodAnalyserException("Mood can not be Empty");
+                throw new MoodAnalyserException(MoodAnalyserException.ExceptionEnum.MOOD_EMPTY,"Mood can not be Empty");
             }
             if (mood.contains("I am Happy")) {
                 return "Happy";
@@ -23,7 +23,7 @@ public class MoodAnalyzer {
             return "Sad";
         }
         catch(NullPointerException e){
-            throw new MoodAnalyserException("Enter valid Mood");
+            throw new MoodAnalyserException(MoodAnalyserException.ExceptionEnum.MOOD_NULL,"Enter valid Mood");
             //return "Happy";
         }
     }
