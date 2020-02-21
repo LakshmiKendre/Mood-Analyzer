@@ -2,17 +2,20 @@ package moodAnalyzer;
 
 import exception.MoodAnalyserException;
 
+import javax.swing.*;
 import java.lang.reflect.Method;
 
 public class MoodAnalyzer {
     private String mood;
 
     public MoodAnalyzer() {
-        mood="default msg";
+        mood="Default";
     }
+
     public MoodAnalyzer(String message) {
         mood = message;
     }
+
     public String analyzeMood(String message) throws MoodAnalyserException {
         mood = message;
         return analyzeMood();
@@ -21,13 +24,13 @@ public class MoodAnalyzer {
     public String analyzeMood() throws MoodAnalyserException {
 
         try {
-            if (mood.contains("")) {
+            if (mood.length() == 0 ) {
                 throw new MoodAnalyserException(MoodAnalyserException.ExceptionEnum.MOOD_EMPTY,"Mood can not be Empty");
             }
-            if (mood.contains("I am Happy")) {
+            if (mood.contains("Happy"))
                 return "Happy";
-            }
-            return "Sad";
+            else
+                return "Sad";
         }
         catch(NullPointerException e){
             throw new MoodAnalyserException(MoodAnalyserException.ExceptionEnum.MOOD_NULL,"Enter valid Mood");

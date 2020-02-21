@@ -66,7 +66,7 @@ public class MoodAnalyzerTest {
         try {
             MoodAnalyzer moodAnalyzer = new MoodAnalyzer();
             mood = moodAnalyzer.analyzeMood();
-            Assert.assertEquals("Happy",mood);
+            Assert.assertEquals("Sad",mood);
         } catch (MoodAnalyserException e) {
             e.printStackTrace();
         }
@@ -155,6 +155,31 @@ public class MoodAnalyzerTest {
         try {
             Constructor<?> constructor = MoodAnalyzerFactory.getConstructor("moodAnalyzer.MoodAnalyzer",Integer.class);
         } catch (MoodAnalyserException e) {
+            Assert.assertEquals(MoodAnalyserException.ExceptionEnum.NO_SUCH_METHOD, e.variable);
+        }
+    }
+
+    // test case for Invoking method by using Reflection
+    @Test
+    public void givenHappyUsingReflection_whenProper_shouldReturnHappy() {
+        MoodAnalyzer object = MoodAnalyzerFactory.createMoodAnalyzer("I am Happy");
+        String mood = null;
+        try {
+            mood = MoodAnalyzerFactory.invokeMethod(object, "analyzeMood");
+        } catch (MoodAnalyserException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals("Happy", mood);
+    }
+
+    // test case for if given improper name of method should return MoodAnalyzerException
+    @Test
+    public void givenHappyMessage_whenImproperMethodName_shouldReturnMoodAnalyzerException() {
+        try {
+            MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMoodAnalyzer("I am Happy");
+            String mood = MoodAnalyzerFactory.invokeMethod(moodAnalyzer, "analyzemood");
+            Assert.assertEquals("Happy", mood);
+        }catch (MoodAnalyserException e) {
             Assert.assertEquals(MoodAnalyserException.ExceptionEnum.NO_SUCH_METHOD, e.variable);
         }
     }
