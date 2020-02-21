@@ -122,7 +122,24 @@ public class MoodAnalyzerTest {
         Assert.assertEquals(new MoodAnalyzer(),moodAnalyzer);
     }
 
-    //4.2 test method to throw NoSuchClassException by giving wrong class name
+    //5 test method for MoodAnalyzerFactory should return MoodAnalyzer Object
+    @Test
+    public void givenMoodAnalyzerClass_whenProper_shouldReturnObject() {
+        MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMoodAnalyzer("I am Happy");
+        try {
+            String mood = moodAnalyzer.analyzeMood();
+            Assert.assertEquals("Happy", mood);
+        } catch (MoodAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+    //5.1 test method to check if the two objects are equal are not
+    @Test
+    public void givenMoodAnalyzerClassObject_whenProper_shouldReturnTrue() {
+        MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMoodAnalyzer("I am Happy");
+        Assert.assertEquals(new MoodAnalyzer("I am Happy"),moodAnalyzer);
+    }
+    //5.2 test method to throw NoSuchClassException by giving wrong class name
     @Test
     public void givenClassName_whenImproper_throwMoodAnalysisException() {
         try {
@@ -132,7 +149,7 @@ public class MoodAnalyzerTest {
         }
     }
 
-    //4.3 test method to throw NoSuchMethodException by passing wrong parameter to constructor
+    //5.3 test method to throw NoSuchMethodException by passing wrong parameter to constructor
     @Test
     public void givenMethodName_whenImproper_throwMoodAnalysisException() {
         try {
